@@ -1,2 +1,2 @@
 # ItsHaldun.github.io
-My Personal Github website
+My personal Github website

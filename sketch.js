@@ -1,87 +1,112 @@
-function setup() {
-  createCanvas(480, 720);
-  
-  player = new bird();
+// For it to run you need a local server (check: https://github.com/processing/p5.js/wiki/Local-server)
 
-  // Starting at x=720, creates 5 pipeColumns 320 pixels apart.
-  pipes = new pipeList(720, 5, 320);
-  pipes.initialize();
+function setup() {
+  settings = {
+    "difficulty": "easy",
   
-  started = false;
+    "canvas": {
+      width: windowWidth,
+      height: windowHeight
+    },
   
-  highscore = getItem('highscore');
-   if (highscore === null) {
-     highscore = 0;
-   }
+    "bomb": {
+      fillColor: color(255, 0, 0),
+			bombColor: color(30),
+      strokeColor: color(0),
+      strokeWeight: 3
+    },
+
+		"flag": {
+			flagColor: color(255,0,0),
+      strokeColor: color(0),
+      strokeWeight: 3
+    },
+  
+    "tile": {
+      hiddenFillColor: color(80),
+      revealedFillColor: color(180),
+      strokeColor: color(0),
+      strokeWeight: 2
+    },
+  
+    "text": [color(0,0,255), color(0,180,0), 
+      color(255,0,0), color(0,0,120), 
+      color(150,0,0), color(0,150,150), 
+      color(0), color(80)]
+  };
+
+	STATE = 0; // 0 -> playing; -1 -> game over; 1 -> won
+  canvas = createCanvas(1+settings.canvas.width, 1+settings.canvas.height);
+  board = new Board(settings);
+
+	board.calculate_values();
 }
 
 function draw() {
-  background(20);
-  
-  // The game starts with a mouse click.
-  if (!started) {
-      displayText("Press a key to start!", width/2, height/2);
-    
-      if(mouseIsPressed) {
-        started = true;
-      }
-    
-      return;
-    }
-  
-  //Pipes are generated and displayed.
-  pipes.generatePipes(pipes.activePipes[0].upperPipe.x);
-  pipes.displayPipes();
+  background(255);
+  board.draw();
 
-  player.display();
 
-  pipes.givePoints(player);
-  
-  // Super advanced UI is made here.
-  displayText(player.score, width/2, height/10);
-  displayText("Record: " + highscore, width*4/5, height/10);
-  
-  // Removes any offscreen pipes.
-  pipes.removePipes();
-  
-  //Main game logic is... Continue until game over!
-  if (!GameOver()) {
-    pipes.movePipes(3);
-    player.updatePosition();
-  }
-  else {
-    displayGameOver();
-    
-    if (player.score > highscore) {
-       storeItem('highscore', player.score);
-    }
-  }
-  
+	// Lose
+	if (STATE == -1) {
+		push();
+		//Semi-transparent Backdrop
+		fill(0,0,0, 90);
+		rect(0, 0, board.width, board.height);
+		
+		textSize(settings.canvas.width/12);
+		textAlign(CENTER);
+		fill(255,0,0);
+		stroke(0);
+		strokeWeight(3);
+		text("Game Over!", board.width/2, board.height/2);
+		pop();
+	}
+
+	// Win
+	if (STATE == 1) {
+		push();
+		//Semi-transparent Backdrop
+		fill(0,0,0, 90);
+		rect(0, 0, board.width, board.height);
+		
+		textSize(settings.canvas.width/12);
+		textAlign(CENTER);
+		fill(0,255,0);
+		stroke(0);
+		strokeWeight(3);
+		text("You Win!", board.width/2, board.height/2);
+		pop();
+	}
 }
 
-// Bird flaps if mouse is pressed.
-function mousePressed() {
-  let flapForce = 12;
-  player.flap(flapForce);
+// For flags, unfortunately
+function keyPressed() {
+	if(keyCode === 70 && STATE == 0) {
+		let i = floor(mouseY/board.tileSize);
+		let j = floor(mouseX/board.tileSize);
+
+		board.plant_flag(i, j);
+		// check win condition
+		STATE = board.check_victory();
+	}
 }
 
-function GameOver() {
-  if ((player.y < -player.h/2) || 
-      (player.y > height-player.h/2) ||
-      (pipes.detectAllCollusions(player))) 
-    {return true;}
-  else 
-    {return false;}
-}
+function mouseClicked() {
 
-// These functions aren't necessary, but they make the code easier to read.
-function displayGameOver() {
-  displayText("Game Over", width/2, height/3, 48, clr=color(255,0,0));
-}
+	if (STATE == 0) {
+		let i = floor(mouseY/board.tileSize);
+		let j = floor(mouseX/board.tileSize);
 
-function displayText(txt, x, y, size=32, clr=255, Align=CORNER) {
-  textSize(size);
-  textAlign(CENTER);
-  fill(clr);
-  text(txt, x, y);
+		if(mouseButton === LEFT) {
+			STATE = board.reveal(i, j);
+
+			if (STATE == -1) {
+				return -1;
+			}
+
+			// check win condition
+			STATE = board.check_victory();
+		}
+	}
 }

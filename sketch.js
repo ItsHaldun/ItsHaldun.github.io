@@ -17,7 +17,7 @@ function timer() {
 }
 
 function preload() {
-  font = loadFont('assets/inconsolata.otf');
+  font = loadFont('Inconsolata.otf');
 }
 
 function setup() {

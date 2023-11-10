@@ -1,12 +1,12 @@
 // For it to run you need a local server (check: https://github.com/processing/p5.js/wiki/Local-server)
 
 let font;
-let text_bounds = [];
+let text_bounds;
 let difficulty;
 let textWidth;
 
 let timeElapsed;
-let counter = setInterval(timer, 1000); 
+let counter;
 
 function timer() {
 	timeElapsed[0] += 1;
@@ -21,8 +21,10 @@ function preload() {
 }
 
 function setup() {
-	textWidth = windowWidth;
 	timeElapsed = [0, 0];
+	counter = setInterval(timer, 1000);
+	textWidth = windowWidth;
+	
   settings = {
     "difficulty": "easy",
   

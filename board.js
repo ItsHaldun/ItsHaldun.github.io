@@ -2,14 +2,22 @@ class Board {
   constructor(settings) {
     this.settings = settings;
     this.boardSettings = this.get_board_settings(settings.difficulty);
+
+		this.max_height = settings.canvas.height*0.92;
+		this.max_width = settings.canvas.width*0.99;
+
+		this.x_offset = settings.canvas.height*0.01;
+		this.y_offset = settings.canvas.height*0.05;
         
-    this.tileSize = min(floor(settings.canvas.height/this.boardSettings.rows), 
-												floor(settings.canvas.width/this.boardSettings.columns));
+    this.tileSize = min(floor(this.max_height/this.boardSettings.rows), 
+												floor(this.max_width/this.boardSettings.columns));
 
 		this.width = this.boardSettings.columns*this.tileSize;
 		this.height = this.boardSettings.rows*this.tileSize;
 
     this.tiles = this.create_tiles(this.boardSettings.rows, this.boardSettings.columns);
+
+		this.flags = 0;
   }
 
   create_tiles() {
@@ -17,7 +25,7 @@ class Board {
     
     for (let i=0; i<this.boardSettings.rows; i++) {
       for (let j=0; j<this.boardSettings.columns; j++) {
-        tiles.push(new Tile([i, j], this.tileSize, false, false, false));
+        tiles.push(new Tile([i, j], this.tileSize, false, false, false, this.x_offset, this.y_offset));
       }
     }
 
@@ -82,6 +90,7 @@ class Board {
 		let revealCache = [[row, column]];
 		let rows = this.boardSettings.rows;
 		let columns = this.boardSettings.columns;
+		let onClick = true;
 
 		if (row<rows && column<columns) {
 			// If the tile is flagged, do nothing
@@ -91,19 +100,57 @@ class Board {
 			// If it's a bomb, it's game over
 			else if (this.tiles[row*columns + column].isBomb) {
 				// Reveal all the bombs
-				for (let k = 0; k<this.tiles.length; k++) {
-					if (this.tiles[k].isBomb) {
-						this.tiles[k].revealed = true;
-					}
-				}
-				return -1;
+				return this.trigger_end();
 			}
 
 			while (revealCache.length>0) {
 				let i = revealCache[0][0];
 				let j = revealCache[0][1];
 
+				// Chording
+				if(this.tiles[i*columns + j].revealed && this.tiles[i*columns + j].value > 0 && !this.tiles[i*columns + j].isBomb && onClick) {
+					onClick = false;
+					let flag_count = 0;
+					let bomb_count = 0;
+					
+					// Check if number of bombs and flags are equal
+					for(let n=-1; n<=1; n++) {
+						for (let m = -1; m<=1; m++) {
+							if (n==0 && m==0) {
+								continue;
+							}
+							// Check for edge cases
+							if (i+n<rows && i+n>=0 && j+m<columns && j+m>=0) {
+								flag_count += this.tiles[(i+n)*columns + (j+m)].flagged ? 1:0;
+								bomb_count += this.tiles[(i+n)*columns + (j+m)].isBomb ? 1:0;
+							}
+						}
+					}
+					// Reveal the squares
+					if (flag_count==bomb_count) {
+						for(let n=-1; n<=1; n++) {
+							for (let m = -1; m<=1; m++) {
+								if (n==0 && m==0) {
+									continue;
+								}
+
+								if (i+n<rows && i+n>=0 && j+m<columns && j+m>=0) {
+									// If you had a unflagged bomb, game over
+									if (this.tiles[(i+n)*columns + (j+m)].isBomb && !this.tiles[(i+n)*columns + (j+m)].flagged) {
+										return this.trigger_end();
+									}
+									// If the square is not revealed and is not flagged, then reveal it
+									if (!this.tiles[(i+n)*columns + (j+m)].revealed && !this.tiles[(i+n)*columns + (j+m)].flagged) {
+										revealCache.push([i+n, j+m]);
+									}
+								}
+							}
+						}
+					}
+				}
+
 				if(!this.tiles[i*columns + j].revealed && this.tiles[i*columns + j].value == 0 && !this.tiles[i*columns + j].isBomb) {
+					onClick = false;
 					if (j>0) {
 						revealCache.push([i, j-1]);
 					}
@@ -130,8 +177,10 @@ class Board {
 					}
 				}
 				this.tiles[i*columns + j].revealed = true;
-				this.tiles[i*columns + j].flagged = false;
-
+				if(this.tiles[i*columns + j].flagged) {
+					this.flags += -1;
+					this.tiles[i*columns + j].flagged = false;
+				}
 				revealCache.splice(0, 1);
 			}
 		}
@@ -139,8 +188,30 @@ class Board {
 	}
 
 	plant_flag(row, column) {
-		this.tiles[row*this.boardSettings.columns + column].flagged = 
+		if(!this.tiles[row*this.boardSettings.columns + column].revealed) {
+			// Flip flag status
+			this.tiles[row*this.boardSettings.columns + column].flagged = 
 			!this.tiles[row*this.boardSettings.columns + column].flagged;
+		
+			if (this.tiles[row*this.boardSettings.columns + column].flagged) {
+				this.flags += 1;
+			}
+			else {
+				if (this.flags > 0) {
+					this.flags += -1;
+				}
+			}
+		}
+	}
+
+	// Triggers all bombs and finishes the game
+	trigger_end() {
+		for (let k = 0; k<this.tiles.length; k++) {
+			if (this.tiles[k].isBomb) {
+				this.tiles[k].revealed = true;
+			}
+		}
+		return -1;
 	}
 
   // Draws all the tiles based on their status
@@ -153,11 +224,9 @@ class Board {
 	check_victory() {
 		for (let i=0; i<this.tiles.length; i++){
 			if (!this.tiles[i].isBomb && !this.tiles[i].revealed) {
-				print(1);
 				return 0;
 			}
 			if (!this.tiles[i].isBomb && this.tiles[i].flagged) {
-				print(2);
 				return 0;
 			}
 		}

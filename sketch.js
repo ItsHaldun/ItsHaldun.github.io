@@ -1,18 +1,20 @@
 // For it to run you need a local server (check: https://github.com/processing/p5.js/wiki/Local-server)
 
 let font;
-let text_bounds;
+let text_bounds = [];
 let difficulty;
 let textWidth;
 
 let timeElapsed;
-let counter;
+let counter = setInterval(timer, 1000);
 
 function timer() {
-	timeElapsed[0] += 1;
+	if (STATE==0) {
+		timeElapsed[0] += 1;
 	if (timeElapsed[0] % 60 == 0) {
 		timeElapsed[0] = 0;
 		timeElapsed[1] += 1;
+	}
 	}
 }
 
@@ -21,10 +23,8 @@ function preload() {
 }
 
 function setup() {
-	timeElapsed = [0, 0];
-	counter = setInterval(timer, 1000);
 	textWidth = windowWidth;
-	
+	timeElapsed = [0, 0];
   settings = {
     "difficulty": "easy",
   
@@ -196,7 +196,6 @@ function keyPressed() {
 }
 
 function mouseClicked() {
-	print(text_bounds);
 	if (mouseY < board.y_offset) {
 		if(mouseButton === LEFT) {
 			if (mouseX<text_bounds[0].x+2.2*text_bounds[0].w && mouseX>text_bounds[0].x) {

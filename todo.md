@@ -1,0 +1,12 @@
+TODO
+- [ ] Add other projects
+	- [x] Added 2D-Raycasting
+	- [x] Added 2D-3D projection
+	- [ ] Added visual-sorting
+	- [ ] Added Particle Simulator
+	- [ ] Added Crappy Bird
+	- [ ] Added Fourier-visualization
+- [x] Fix minesweeper bounding boxes
+- [ ] Make the main website beautiful
+- [ ] Touch up other projects
+- [ ] Implement wave-function collapse algorithm

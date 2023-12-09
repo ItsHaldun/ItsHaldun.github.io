@@ -1,0 +1,37 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+h1 {
+  color: rgb(0, 0, 0);
+	font-size: 48px;
+  text-align: center;
+}
+
+h2 {
+  color: rgb(0, 0, 0);
+	font-size: 24px;
+  text-align: left;
+}
+
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+
+/* Link Styles */
+/*
+a:link {color:rgb(0, 0, 0);}
+a:visited {color:yellow;}
+a:hover {color:purple;}
+*/

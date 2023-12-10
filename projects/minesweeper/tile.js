@@ -37,7 +37,19 @@ class Tile {
 			stroke(settings.bomb.strokeColor);
 			strokeWeight(settings.bomb.strokeWeight);
 			ellipseMode(CENTER);
-			circle(this.x+this.size*0.5, this.y+this.size*0.5, this.size*0.8);
+			// Pins
+			rect(this.x+this.size*0.45, this.y+this.size*0.1, this.size*0.1, this.size*0.1);
+			rect(this.x+this.size*0.45, this.y+this.size*0.8, this.size*0.1, this.size*0.1);
+			rect(this.x+this.size*0.1, this.y+this.size*0.45, this.size*0.1, this.size*0.1);
+			rect(this.x+this.size*0.8, this.y+this.size*0.45, this.size*0.1, this.size*0.1);
+
+			rect(this.x+this.size*0.23, this.y+this.size*0.23, this.size*0.1, this.size*0.1);
+			rect(this.x+this.size*0.67, this.y+this.size*0.23, this.size*0.1, this.size*0.1);
+			rect(this.x+this.size*0.23, this.y+this.size*0.67, this.size*0.1, this.size*0.1);
+			rect(this.x+this.size*0.67, this.y+this.size*0.67, this.size*0.1, this.size*0.1);
+			
+			// Center
+			circle(this.x+this.size*0.5, this.y+this.size*0.5, this.size*0.6);
 			pop();
     }
 
@@ -47,9 +59,17 @@ class Tile {
       fill(settings.flag.flagColor);
 			stroke(settings.flag.strokeColor);
 			strokeWeight(settings.bomb.strokeWeight);
-			triangle(this.x+this.size*0.2, this.y+this.size*0.2, 
-							this.x+this.size*0.8, this.y+this.size*0.2,
-							this.x+this.size*0.5, this.y+this.size*0.8);
+			// The flag
+			triangle(this.x+this.size*0.2, this.y+this.size*0.3, 
+							this.x+this.size*0.5, this.y+this.size*0.1,
+							this.x+this.size*0.5, this.y+this.size*0.5);
+			stroke(0);
+			fill(0);
+			// The pole
+			line(this.x+this.size*0.5, this.y+this.size*0.5, 
+				this.x+this.size*0.5, this.y+this.size*0.7);
+			// The base
+			rect(this.x+this.size*0.25, this.y+this.size*0.7, this.size*0.5, this.size*0.1);
 			pop();
     }
 
@@ -57,7 +77,7 @@ class Tile {
     if (this.revealed && !this.isBomb) {
       if (this.value>0) {
         push();
-        fill(settings.text[this.value-1]);
+        fill(settings.numbers[this.value-1]);
         noStroke();
         textAlign(CENTER);
         textSize(this.fontSize);

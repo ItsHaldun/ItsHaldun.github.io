@@ -4,7 +4,7 @@ let font;
 let text_bounds = [];
 let offsets = [];
 let difficulty;
-let textWidth;
+let settings;
 
 let timeElapsed;
 let counter = setInterval(timer, 1000);
@@ -24,7 +24,11 @@ function preload() {
 }
 
 function setup() {
-	textWidth = windowWidth;
+	// Disable right click menu
+	for (let element of document.getElementsByClassName("p5Canvas")) {
+    element.addEventListener("contextmenu", (e) => e.preventDefault());
+  }
+	
 	timeElapsed = [0, 0];
   settings = {
     "difficulty": "easy",
@@ -54,10 +58,19 @@ function setup() {
       strokeWeight: 2
     },
   
-    "text": [color(0,0,255), color(0,180,0), 
-      color(255,0,0), color(0,0,120), 
-      color(150,0,0), color(0,150,150), 
-      color(0), color(80)]
+    "numbers": [color(0,0,255), color(0,180,0), 
+      					color(255,0,0), color(0,0,120), 
+      					color(150,0,0), color(0,150,150), 
+      					color(0), color(80)],
+		
+		"endCards": {
+			gameOverColor: color(255,0,0),
+			winColor: color(0,255,0),
+			strokeSize: 5,
+			heading_size: min(windowWidth, windowHeight)/7,
+			subheading_size:  min(windowWidth, windowHeight)/24,
+			backdrop: color(0,0,0, 128)
+		}
   };
 
 	difficulty = getItem("difficulty");
@@ -85,17 +98,17 @@ function draw() {
 	if (STATE == -1) {
 		push();
 		//Semi-transparent Backdrop
-		fill(0,0,0, 90);
+		fill(settings.endCards.backdrop);
 		rect(board.x_offset, board.y_offset, board.width, board.height);
 		
-		textSize(settings.canvas.width/12);
+		textSize(settings.endCards.heading_size);
 		textAlign(CENTER);
-		fill(255,0,0);
+		fill(settings.endCards.gameOverColor);
 		stroke(0);
-		strokeWeight(3);
+		strokeWeight(settings.endCards.strokeSize);
 		text("Game Over!", (board.width+board.x_offset)/2, (board.height+board.y_offset)/2);
 		end_bound = font.textBounds("Game Over!", (board.width+board.x_offset/2), (board.height+board.y_offset)/2);
-		textSize(settings.canvas.width/36);
+		textSize(settings.endCards.subheading_size);
 		text("Click to try again", (board.width+board.x_offset)/2, (board.height+board.y_offset)/2 + end_bound.h);
 		pop();
 	}
@@ -104,17 +117,17 @@ function draw() {
 	if (STATE == 1) {
 		push();
 		//Semi-transparent Backdrop
-		fill(0,0,0, 90);
+		fill(settings.endCards.backdrop);
 		rect(board.x_offset, board.y_offset, board.width, board.height);
 		
-		textSize(settings.canvas.width/12);
+		textSize(settings.endCards.heading_size);
 		textAlign(CENTER);
-		fill(0,255,0);
+		fill(settings.endCards.winColor);
 		stroke(0);
-		strokeWeight(3);
+		strokeWeight(settings.endCards.strokeSize);
 		text("You Win!", (board.width+board.x_offset)/2, (board.height+board.y_offset)/2);
 		end_bound = font.textBounds("You Win!", (board.width+board.x_offset/2), (board.height+board.y_offset)/2);
-		textSize(settings.canvas.width/36);
+		textSize(settings.endCards.subheading_size);
 		text("Click to try again", (board.width+board.x_offset)/2, (board.height+board.y_offset)/2 + end_bound.h);
 		pop();
 	}
@@ -197,24 +210,7 @@ function draw_header() {
 }
 
 
-// For flags, unfortunately
-function keyPressed() {
-	if(keyCode === 70 && STATE == 0) {
-		let i = floor((mouseY-board.y_offset)/board.tileSize);
-		let j = floor((mouseX-board.x_offset)/board.tileSize);
-
-		if (i<0 || j < 0) {
-			return 0;
-		}
-
-		board.plant_flag(i, j);
-		// check win condition
-		STATE = board.check_victory();
-	}
-}
-
-
-function mouseClicked() {
+function mousePressed() {
 	if ((mouseY < board.y_offset) && (mouseY > 0)) {
 		if(mouseButton === LEFT) {
 			if (mouseX<text_bounds[0].x+text_bounds[0].w && mouseX>text_bounds[0].x) {
@@ -240,12 +236,32 @@ function mouseClicked() {
 			return 0;
 		}
 
+		// Left Click reveals tile
 		if(mouseButton === LEFT) {
 			STATE = board.reveal(i, j);
 
 			if (STATE == -1) {
 				return -1;
 			}
+
+			// check win condition
+			STATE = board.check_victory();
+		}
+
+		// Right Click plants flags
+		if(mouseButton === RIGHT && STATE == 0) {
+			let i = floor((mouseY-board.y_offset)/board.tileSize);
+			let j = floor((mouseX-board.x_offset)/board.tileSize);
+
+			if (i<0 || j < 0) {
+				return 0;
+			}
+
+			if (STATE == -1) {
+				return -1;
+			}
+
+			board.plant_flag(i, j);
 
 			// check win condition
 			STATE = board.check_victory();

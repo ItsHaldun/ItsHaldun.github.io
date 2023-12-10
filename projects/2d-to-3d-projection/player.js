@@ -211,7 +211,7 @@ class Player {
     draw3D() {
         let width = this.maxCanvasWidth / this.rays.length;
         let x = 0;
-
+				push();
         rectMode(CENTER);
 
         for(let i=0; i<this.rays.length; i++) {
@@ -219,7 +219,7 @@ class Player {
             let maxDist = this.rays[i].maxDistance;
             
             let bright = map(distance, maxDist, 0, 0, 255);
-            push();
+            
             fill(bright);
             stroke(bright);
 
@@ -230,7 +230,7 @@ class Player {
 								size);
 
             x += width;
-            pop();
         }
+				pop();
     }
 }

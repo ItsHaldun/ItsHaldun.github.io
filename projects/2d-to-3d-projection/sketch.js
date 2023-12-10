@@ -12,10 +12,10 @@ function setup() {
 	HEIGHT = windowHeight * 0.9;
   createCanvas(WIDTH, HEIGHT);
 
-	slider = createSlider(0, 1024, 256);
+	slider = createCSlider(0, 1024, 256);
 	sliderValue = slider.value();
-	slider.position(0.003*WIDTH, 1.08*HEIGHT);
-  slider.size(0.2*WIDTH);
+	slider.position(0.01*WIDTH, 0.5*HEIGHT);
+  slider.size(0.1*WIDTH);
 
 	// Beginning Section
   objects.push(new rectangleWall(0, 0.1*HEIGHT, 0.05*WIDTH, 0.02*HEIGHT));
@@ -76,4 +76,12 @@ function draw() {
   }
   player.show();
   player.draw3D();
+
+	// Slider and Text
+	push();
+	fill(255);
+	textSize(0.01*WIDTH);
+	text("Rays: " + sliderValue, 0.006*WIDTH, 0.44*HEIGHT);
+	slider.position(0.006*WIDTH, 0.45*HEIGHT);
+	pop();
 }

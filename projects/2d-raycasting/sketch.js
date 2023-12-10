@@ -5,11 +5,11 @@ let raycaster;
 let raySlider;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight*0.9);
+  createCanvas(windowWidth, windowHeight*0.926);
 
-	raySlider = createSlider(10, 1000, 256);
-  raySlider.position(10, windowHeight*0.97);
-  raySlider.size(160);
+	raySlider = createCSlider(10, 1024, 512);
+  raySlider.position(windowWidth*0.001, windowHeight*0.97);
+  raySlider.size(windowWidth*0.2);
 	number_of_rays = raySlider.value();
   
   for(let i = 0; i< number_of_walls; i++) {
@@ -37,4 +37,12 @@ function draw() {
     walls[i].show();
   }
   raycaster.show();
+
+	push();
+	fill(255);
+	textSize(0.01*windowWidth);
+	text("Rays: " + number_of_rays, windowWidth*0.01, windowHeight*0.84);
+
+	raySlider.position(windowWidth*0.01, windowHeight*0.85);
+	pop();
 }

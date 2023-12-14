@@ -12,7 +12,7 @@ html, body {
 
 .parallax {
   /* The image used */
-  background-image: url("/assets/_images/night-sky-full-moon.jpg");
+  background-image: url("/assets/images/night-sky-full-moon.jpg");
 
   /* Set a specific height */
   min-height: 500px;

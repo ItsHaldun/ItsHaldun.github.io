@@ -8,8 +8,9 @@ let WIDTH;
 let HEIGHT;
 
 function setup() {
+	let HEADER_OFFSET = 57;
 	WIDTH = windowWidth;
-	HEIGHT = windowHeight * 0.9;
+	HEIGHT = windowHeight - HEADER_OFFSET;
   createCanvas(WIDTH, HEIGHT);
 
 	slider = createCSlider(0, 1024, 256);

@@ -5,7 +5,8 @@ let raycaster;
 let raySlider;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight*0.926);
+	let HEADER_OFFSET = 57;
+  createCanvas(windowWidth, windowHeight-HEADER_OFFSET);
 
 	raySlider = createCSlider(10, 1024, 512);
   raySlider.position(windowWidth*0.001, windowHeight*0.97);

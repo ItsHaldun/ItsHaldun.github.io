@@ -24,6 +24,7 @@ function preload() {
 }
 
 function setup() {
+	let HEADER_OFFSET = 57;
 	// Disable right click menu
 	for (let element of document.getElementsByClassName("p5Canvas")) {
     element.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -35,7 +36,7 @@ function setup() {
   
     "canvas": {
       width: windowWidth,
-      height: windowHeight*0.9
+      height: windowHeight-HEADER_OFFSET
     },
   
     "bomb": {

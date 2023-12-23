@@ -50,6 +50,19 @@
 			<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
 				<div class="col">
 					<div class="card h-100">
+						<img src="assets/images/projects/marching-squares/marching-squares.gif" class="card-img-top" alt="marching-squares-showcase">
+						<div class="card-body">
+							<h5 class="card-title fw-bold text-primary-emphasis">Marching Squares</h5>
+							<p class="card-text">Creating continuous shapes with random noise!</p>
+							<a href="#modal-marching-squares" data-bs-toggle="modal" class="stretched-link">Click to Expand</a>
+						</div>
+						<div class="card-footer">
+							<small class="text-body-secondary">Date Posted: 23/12/2023</small>
+						</div>
+					</div>				
+				</div>
+				<div class="col">
+					<div class="card h-100">
 						<img src="assets/images/projects/minesweeper/minesweeper-showcase.gif" class="card-img-top" alt="minesweeper-showcase">
 						<div class="card-body">
 							<h5 class="card-title fw-bold text-primary-emphasis">Minesweeper in Javascript</h5>
@@ -104,6 +117,48 @@
 		</div>
 
 		<!-- Modals -->
+		<!-- Marching Squares Modal -->
+		<div class="modal" tabindex="-1" id="modal-marching-squares">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body ms-2 me-2">
+						<img src="assets/images/projects/marching-squares/marching-squares.gif" alt="marching-squares-showcase" class="img-center-80">
+						<h3 class="text-center m-4">Marching Squares</h3>
+						<h4>Summary</h4>
+						<p>I was inspired by the coding train video <a target="_blank" href="https://youtu.be/Mm2eYfj0SgA?feature=shared">Coding Marching Squares</a> to implement my own version of marching squares algorithm.
+						Essentially, it is an algorithm that converts adjacent cell values to a lookup number that corresponds to a <a target="_blank" href="https://en.wikipedia.org/wiki/Marching_squares">contour line</a>.
+						Coding Train, as always, explained it far better than I could. I highly recommend checking out his video. I did not use any code from him directly, except for using the same noise generator that he used.
+						My version comes with adjustable settings that change how to visuals look, so please enjoy and experiment!
+						</p>
+						<div class="ratio ratio-16x9 mb-4">
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/0ZONMNUKTfU?si=lTEZh27l6Gb8LpvB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+						</div>
+						<h4>Fun Fact</h4>
+						<p>I got carried away and implemented a multi-dimensional array library from scratch for this project!</p>
+						<h4>How it works</h4>
+						<ul>
+							<li>You start by creating three dimensional noise. I used <a target="_blank" href="https://gist.github.com/KdotJPG/b1270127455a94ac5d19">open simplex noise</a> because of its organic look.</li>
+							<li>You sample from neighboring noise values and convert them into a single integer.</li>
+							<li>This number is used to get the shape appropriate shape of the contour we would like to draw.</li>
+							<li>For smoother boundary, use <a target="_blank" href="https://en.wikipedia.org/wiki/Linear_interpolation">linear interpolation</a>.</li>
+						</ul>
+						<h4>How to play</h4>
+						<ul>
+							<li>There are four sliders you can control.</li>
+							<li>With the sliders you can toggle the background grid, change the speed of animation, zoom in, and adjust the thickness of the lines.</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<a type="button" class="btn btn-lg btn-secondary" target="_blank" href="https://github.com/ItsHaldun/marchingSquares.js">GitHub Page</a>
+						<a type="button" class="btn btn-lg btn-primary" href="/projects/marching-squares/marching-squares.html">Try it Yourself</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Minesweeper Modal -->
 		<div class="modal" tabindex="-1" id="modal-minesweeper">
 			<div class="modal-dialog modal-lg">

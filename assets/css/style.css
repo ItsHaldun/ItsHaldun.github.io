@@ -12,10 +12,10 @@ html, body {
 
 .parallax {
   /* The image used */
-  background-image: url("/assets/images/night-sky-full-moon.jpg");
+  /* background-image: url("/assets/images/night-sky-full-moon.jpg"); */
 
   /* Set a specific height */
-  min-height: 500px;
+  min-height: 800px;
 
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
@@ -29,7 +29,7 @@ html, body {
 .background-text {
 	display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 800px;
   width: 100%;
   justify-content: center;
   align-items: center;

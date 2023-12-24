@@ -24,7 +24,7 @@ function setup() {
 	columns = int(w / size) + 1;
 
 	// Initialize the Scalar Field
-	field = new ScalarField(rows, columns, size, 0.2, 0.002, 50);
+	field = new ScalarField(rows, columns, size, 0.2, 0.0015, 40);
 
   canvas = createCanvas(w, h);
 	canvas.style("z-index", '-1');
@@ -34,7 +34,7 @@ function setup() {
 function draw() {
   // put drawing code here
   background("#3C2C4F");
-	field.draw(true);
+	field.draw(false);
 	push();
 	noStroke();
 	fill(0, 80);

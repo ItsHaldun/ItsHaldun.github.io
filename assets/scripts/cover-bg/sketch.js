@@ -37,7 +37,7 @@ function draw() {
 	field.draw(false);
 	push();
 	noStroke();
-	fill(0, 80);
+	fill(0, 60);
 	rect(0,0, w, h);
 	pop();
 }

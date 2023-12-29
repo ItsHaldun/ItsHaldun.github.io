@@ -126,9 +126,9 @@ p.glow {
 	text-align: center;
 
 	svg {
-		display: none;
-		visibility:hidden;
 		position: absolute;
+		width: 0%;
+		height: 0%;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
@@ -139,8 +139,8 @@ p.glow {
 .gallery-item:hover {
 	transform: scale(1.02);
 	svg {
-		display: inline-block;
-		visibility:visible;
+		width: 30%;
+		height: 30%;
 	}
 
 	img {

@@ -115,3 +115,32 @@ p.glow {
   90% {margin-top: 0;}
   100% {margin-top: 0;}
 }
+
+
+/* Gallery */
+.gallery-item {
+	transition: all 0.2s;
+	cursor:pointer;
+	display: block;
+	position: relative;
+
+	svg {
+		display: none;
+		top: 50%;
+		left: 50%;
+		position: absolute;
+		transform: translate(-50%, -50%);
+		pointer-events: none;	
+	}
+}
+
+.gallery-item:hover {
+	transform: scale(1.02);
+	svg {
+		display: inline-block;
+	}
+
+	img {
+		filter: brightness(70%);
+	}
+}

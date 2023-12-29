@@ -139,11 +139,17 @@ p.glow {
 .gallery-item:hover {
 	transform: scale(1.02);
 	svg {
-		width: 30%;
-		height: 30%;
+		width: 25%;
+		height: 25%;
 	}
 
 	img {
 		filter: brightness(70%);
+	}
+}
+
+@media (max-width: 811px) {
+	.svg-container {
+		display: none;
 	}
 }

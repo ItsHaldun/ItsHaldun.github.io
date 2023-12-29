@@ -126,11 +126,12 @@ p.glow {
 
 	svg {
 		display: none;
+		visibility:hidden;
 		top: 50%;
 		left: 50%;
 		position: absolute;
 		transform: translate(-50%, -50%);
-		pointer-events: none;	
+		pointer-events: none;
 	}
 }
 
@@ -138,6 +139,7 @@ p.glow {
 	transform: scale(1.02);
 	svg {
 		display: inline-block;
+		visibility:visible;
 	}
 
 	img {

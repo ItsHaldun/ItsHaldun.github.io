@@ -153,3 +153,10 @@ p.glow {
 		display: none;
 	}
 }
+
+.youtube-embed {
+	iframe {
+		aspect-ratio: 16 / 9;
+  	width: 100%;
+	}
+}

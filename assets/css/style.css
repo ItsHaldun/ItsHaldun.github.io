@@ -160,3 +160,21 @@ p.glow {
   	width: 100%;
 	}
 }
+
+/* Some aux classes */
+
+.textC {
+	text-align: center;
+}
+
+.verticalC {
+	vertical-align: middle;
+}
+
+.justifyC {
+	justify-content: center;
+}
+
+.displayInline {
+	display: inline;
+}

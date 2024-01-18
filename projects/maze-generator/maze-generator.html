@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+		<title>Maze Generator - ItsHaldun</title>
+
+		<!-- Bootstrap -->
+		<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+		<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="/assets/css/style.css">
+  </head>
+
+  <body>
+		<!-- Navbar -->
+		<nav class="navbar sticky-top navbar-expand-md bg-dark border-bottom border-body" data-bs-theme="dark">
+			<div class="container-fluid">
+				<!-- Icon and Brand -->
+				<a class="navbar-brand pe-3" href="/index.html">
+					<img src="/assets/images/favicon.ico" width="30" height="30" class="d-inline-block align-top" alt="">
+					ItsHaldun
+				</a>
+				<!-- Toggler Button -->
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<!-- Navbar List -->
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+					<ul class="navbar-nav me-auto mb-2 mb-md-0">
+						<li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/projects.html">Projects</a></li>
+						<li class="nav-item"><a class="nav-link" href="/blog.html">Blog</a></li>
+						<li class="nav-item"><a class="nav-link" href="/music.html">Music</a></li>
+						<li class="nav-item"><a class="nav-link" href="/photography.html">Photography</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container-fluid">
+			<div class="row">
+				<!-- Settings -->
+				<div class="col-md-12 col-lg-3 col-xl-4" style="background-color: #cfcfcf;">
+					<!-- Heading -->
+					<div class="row">
+						<h1 class="fw-bold p-4 mt-2 mb-4 textC">Maze Builder</h1>
+					</div>
+	
+					<!-- Maze Building Settings -->
+					<div class="row textC"><h3>Main Settings</h3></div>
+					<div class="row mb-3 textC">
+						<div class="col-12 col-xl-6">
+							<label for="maze-size-slider" class="form-label">Maze Size</label>
+							<input type="range" min="6" max="48" value="16" step="1" class="form-range" id="maze-size-slider">
+						</div>
+						<div class="col-12 col-xl-6">
+							<label for="wall-size-slider" class="form-label">Frame Rate</label>
+							<input type="range" min="4" max="60" value="60" step="1" class="form-range" id="framerate-slider">
+						</div>
+					</div>
+	
+					<div class="row textC"><h3>Cell Cosmetics</h3></div>
+					<div class="row mb-3 textC">
+						<div class="col-6 col-xl-3 mb-3">
+							<label for="hidden-cell-picker" class="form-label">Hidden-Cell Color</label>
+							<div style="vertical-align: middle;">
+								<input type="color" class="form-control form-control-color displayInline" id="hidden-cell-picker" value="#555555" title="Choose Hidden-Cell Color">
+							</div>
+						</div>
+						<div class="col-6 col-xl-3 mb-3">
+							<label for="visited-cell-picker" class="form-label">Visited-Cell Color</label>
+							<div class="verticalC">
+								<input type="color" class="form-control form-control-color displayInline" id="visited-cell-picker" value="#dddddd" title="Choose Visited-Cell Color">
+							</div>
+						</div>
+						<div class="col-6 col-xl-3 mb-3">
+							<label for="current-cell-picker" class="form-label">Current-Cell Color</label>
+							<div class="verticalC">
+								<input type="color" class="form-control form-control-color displayInline" id="current-cell-picker" value="#00ff00" title="Choose Current-Cell Color">
+							</div>
+						</div>
+						<div class="col-6 col-xl-3 mb-3">
+							<label for="border-picker" class="form-label">Border Color</label>
+							<div class="verticalC">
+								<input type="color" class="form-control form-control-color displayInline" id="border-picker" value="#000000" title="Choose Wall Color">
+							</div>
+						</div>
+						<div class="col-12">
+							<label for="wall-size-slider" class="form-label">Wall Thickness</label>
+							<input type="range" min="1" max="10" value="2" step="1" class="form-range" id="wall-size-slider">
+						</div>
+					</div>
+	
+					<div class="row textC"><h3>Marker Cosmetics</h3></div>
+					<div class="row mb-3 textC">
+						<div class="col-4 form-check form-switch p-0">
+							<div class="row textC verticalC justifyC">
+								<label class="form-check-label" for="marker-switch">Toggle Markers</label>
+							</div>
+							<div class="row verticalC" style="display: inline-block;">
+								<input class="form-check-input" type="checkbox" role="switch" id="marker-switch" checked style="position: relative; left: 20px; top: 10px;">
+							</div>
+						</div>
+						<div class="col-4">
+							<label for="start-color-picker" class="form-label">Start Color</label>
+							<div class="verticalC">
+								<input type="color" class="form-control form-control-color displayInline" id="start-color-picker" value="#aa0000" title="Choose Start Color">
+							</div>
+						</div>
+						<div class="col-4 mb-3">
+							<label for="end-color-picker" class="form-label">End Color</label>
+							<div class="verticalC">
+								<input type="color" class="form-control form-control-color displayInline" id="end-color-picker" value="#00aa00" title="Choose End Color">
+							</div>
+						</div>
+					</div>
+	
+					<div class="row textC">
+						<div class="col-12 col-xl-4 mb-3">
+							<button type="button" class="btn btn-primary" id="build-maze-button" style="width:100%; height:100%;">Build Maze</button>
+						</div>
+						<div class="col-12 col-xl-4 mb-3">
+							<button type="button" class="btn btn-success" id="save-maze-button" style="width:100%; height:100%;">Save Maze</button>
+						</div>
+						<div class="col-12 col-xl-4 mb-3">
+							<button type="button" class="btn btn-danger" id="re-maze-button" style="width:100%; height:100%;" height:100%;>Remake Maze</button>
+						</div>
+					</div>
+	
+					<div class="row textC"><h3>Solver Settings</h3></div>
+	
+					<div class="row textC">
+						<div class="col-6 col-xl-4 mb-3">
+							<div class="row">
+								<label for="path-color-picker" class="form-label">Path Color</label>
+								<div class="col-6">
+									<div class="col-4 form-check form-switch verticalC justifyC">
+										<input class="form-check-input" type="checkbox" role="switch" id="path-switch" checked style="position: relative; left: 30px; top: 10px;">
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="verticalC">
+										<input type="color" class="form-control form-control-color displayInline" id="path-color-picker" value="#960096" title="Choose Path Color">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-6 col-xl-4 mb-3">
+							<div class="row">
+								<label for="trace-color-picker" class="form-label">Trace Color</label>
+								<div class="col-6">
+									<div class="form-check form-switch verticalC justifyC">
+										<input class="form-check-input" type="checkbox" role="switch" id="trace-switch" checked style="position: relative; left: 30px; top: 10px;">
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="verticalC">
+										<input type="color" class="form-control form-control-color displayInline" id="trace-color-picker" value="#9678EC" title="Choose Trace Color">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-xl-4 mb-3 justifyC" style="display:flex; align-items:center;">
+							<button type="button" class="btn btn-danger justifyC" id="solve-maze-button" style="width:100%; display:flex;" disabled>Solve Maze</button>
+						</div>
+					</div>
+				</div>
+	
+				<!-- Canvas -->
+				<div class="col-md-12 col-lg-9 col-xl-8 ml-md-0" style="background-color: #ffffff;">
+					<div id="canvas-div" style="text-align: center;"></div>
+				</div>
+				
+			</div>
+		</div>
+
+		<!-- P5.js and Project Files -->
+		<script src="/assets/scripts/p5.min.js" type="text/javascript"></script>
+    <script src="sketch.js"></script>
+		<script src="cell.js"></script>
+		<script src="maze.js"></script>
+		<script src="mazeWrapper.js"></script>
+		<script src="search.js"></script>
+
+		<!-- Bootstrap JS -->
+		<script src="/assets/scripts/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -93,6 +93,19 @@
 			<div class="row row-cols-1 row-cols-md-3 g-4">
 				<div class="col">
 					<div class="card h-100">
+						<img src="assets/images/projects/maze-generator/maze-generator.gif" class="card-img-top" alt="maze-generator-showcase">
+						<div class="card-body">
+							<h5 class="card-title fw-bold text-primary-emphasis">Maze Generator and Solver</h5>
+							<p class="card-text">Creating and solving mazes using backtracking depth-first search and A* search!	</p>
+							<a href="#modal-maze-generator" data-bs-toggle="modal" class="stretched-link">Click to Expand</a>
+						</div>
+						<div class="card-footer">
+							<small class="text-body-secondary">Date Posted: 20/01/2024</small>
+						</div>
+					</div>				
+				</div>
+				<div class="col">
+					<div class="card h-100">
 						<img src="assets/images/projects/marching-squares/marching-squares.gif" class="card-img-top" alt="marching-squares-showcase">
 						<div class="card-body">
 							<h5 class="card-title fw-bold text-primary-emphasis">Marching Squares</h5>
@@ -160,6 +173,74 @@
 		</div>
 
 		<!-- Modals -->
+		<!-- Maze Generator Modal -->
+		<div class="modal" tabindex="-1" id="modal-maze-generator">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body ms-2 me-2">
+						<img src="assets/images/projects/maze-generator/maze-generator.gif" alt="maze-generator-showcase" class="img-center-80">
+						<h3 class="text-center m-4">Maze Generator and Solver</h3>
+						<h4>Summary</h4>
+						<p>Ever since taking AI classes in my Master's, I've been fascinated by <a target="_blank" href="https://en.wikipedia.org/wiki/Maze-solving_algorithm">maze-solving algorithms</a>.
+							But to implement maze-solving algorithms, you also need to have a maze.
+							In this project, I've used <a target="_blank" href="https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_depth-first_search">backtracking depth-first search</a> to generate random mazes,
+							and then implemented the <a target="_blank" href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* search</a> algorithm to solve those mazes.
+							Although all the code I've written are my own, I was inspired by the youtube channel Coding Train's <a target="_blank" href="https://www.youtube.com/watch?v=HyK_Q5rrcr4">Coding Challenge 10</a>, which you can also find below.
+						</p>
+						<div class="ratio ratio-16x9 mb-4">
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/HyK_Q5rrcr4?si=47fI6k39XqVWE4QP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+						</div>
+						<h4>How it works</h4>
+						<p>I'll briefly explain how the two major algorithms used in this project works. I'll write a blog about them later, so look forward to that!</p>
+
+						<h5>Maze Generation</h5>
+						<ul>
+							<li>Create a grid of cells with 4 walls around each. Initially, these cells are all unvisited.</li>
+							<li>As long as there are unvisited cells, do the following:
+								<ul>
+									<li>If any of the neighbors of the current cell are not visited:
+										<ul>
+											<li>Choose a random neighbor</li>
+											<li>Keep a record of the current cell</li>
+											<li>Remove the walls between the neighbor and the current cell</li>
+											<li>Move to the neighbor and mark it as visited</li>
+										</ul>
+									</li>
+									<li>
+										If all neighbors are visited, go back to one of the recorded cells and make it the current cell.
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+						<h5>Maze Solver</h5>
+						<p>A* algorithm uses the sum of two cost functions to choose where to go in a <a target="_blank" href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Weighted_graph">weighted graph</a>.
+							These two functions are g(n) and h(n). g(n) is the cost of least expensive path from the start to the current cell, 
+							while h(n) is any <a target="_blank" href="https://en.wikipedia.org/wiki/Heuristic">heuristic</a> that we can choose. 
+							I chose <a target="_blank" href="https://en.wikipedia.org/wiki/Taxicab_geometry">manhattan distance</a> to the goal for this.
+							The algorithm simply moves through the cells based on the sum of these two metrics.
+							Youtube channel Computerphile has a phenomenal video explaining the algorithm, which you can watch <a target="_blank" href="https://www.youtube.com/watch?v=ySN5Wnu88nE">here</a>, or below.
+						</p>
+						<div class="ratio ratio-16x9 mb-4">
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/ySN5Wnu88nE?si=T6GKW2kOn5kwFUif" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+						</div>
+
+						<h4>How to play</h4>
+						<p>This time, you have a lot of options to customize the maze. Major ones are for the maze size and the speed of the animation, but you can also change all colors.</p>
+						<p>It's also possible to save the maze as an image or regenerate a new one. Keep in mind that the start and end positions of the maze are randomized.</p>
+						<p>After generating the maze, you can use the solver section. There, you can also change the colors of the final path found, or the cells that were visited by the search algorithm (trace color).</p>
+					</div>
+					<div class="modal-footer">
+						<a type="button" class="btn btn-lg btn-secondary" target="_blank" href="https://github.com/ItsHaldun/MazeGenerator.js">GitHub Page</a>
+						<a type="button" class="btn btn-lg btn-primary" href="/projects/maze-generator/maze-generator.html">Try it Yourself</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Marching Squares Modal -->
 		<div class="modal" tabindex="-1" id="modal-marching-squares">
 			<div class="modal-dialog modal-lg">
